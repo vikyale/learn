@@ -36,6 +36,7 @@ LEARN.ADACORE.COM
        About <about>
        Courses <courses/courses>
        Books <books/books>
+       Community Resources <community>
 
 
 -------------
