@@ -140,7 +140,7 @@ function get_output_from_identifier(container, editors, output_area, identifier)
 
 
 // Launch a run on the given example editor
-function query_operation_result(container, example_name, editors, output_area, operation_url) {
+function query_operation_result(container, example_name, editors, output_area, args, operation_url) {
 
     files = []
 
@@ -166,6 +166,7 @@ function query_operation_result(container, example_name, editors, output_area, o
         "example_name": example_name,
         "files": files,
         "main": container.attr("main"),
+        "prog_args": args,
         "extra_args": container.attr("extra_args"),
     }
 
@@ -406,21 +407,32 @@ function fill_editor_from_contents(container, example_name, example_server,
    }
 
    if (container.attr("run_button")){
-       var run_button = $('<button type="button" class="btn btn-primary">').text("Run").appendTo(buttons_div);
-       editors.buttons.push(run_button);
-       run_button.editors = editors;
-       run_button.on('click', function (x) {
-          if (run_button.disabled) {return;}
-          editors.buttons.forEach(function(b){b.disabled = true;})
-          output_area.empty();
-          output_area.error_count = 0;
+      var run_button = $('<button type="button" class="btn btn-primary">').text("Run").appendTo(buttons_div);
 
-          var div = $('<div class="output_info">');
-          div.text("Running...");
-          div.appendTo(output_area);
-          query_operation_result(container, example_name, run_button.editors, output_area, "/run_program/");
-       })
-   }
+      if (container.attr("lab_editor")) {
+        var arg_text = $('<textarea class="args form-control"></textarea>').appendTo(buttons_div);
+      }
+
+      editors.buttons.push(run_button);
+      run_button.editors = editors;
+      run_button.on('click', function (x) {
+        if (run_button.disabled) {return;}
+        editors.buttons.forEach(function(b){b.disabled = true;})
+        output_area.empty();
+        output_area.error_count = 0;
+
+        var div = $('<div class="output_info">');
+        div.text("Running...");
+        div.appendTo(output_area);
+
+        if (container.attr("lab_editor")) {
+          query_operation_result(container, example_name, run_button.editors, output_area, arg_text.val(), "/run_program/");
+        }
+        else {
+          query_operation_result(container, example_name, run_button.editors, output_area, "", "/run_program/");
+        }
+      })
+  }
 }
 
 function fill_editor(container, example_name, example_server) {

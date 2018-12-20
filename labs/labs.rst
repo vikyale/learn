@@ -1,5 +1,3 @@
-:orphan:
-
 .. meta::
   :author: AdaCore
 
@@ -7,10 +5,10 @@
 :next_state: False
 
 Labs
-=============================
+====
 
 .. toctree::
    :maxdepth: 1
 
-   Integer to String <int_to_string/problem_statement>
+   Major League Hacking Localhost - Bug-Free Coding with SPARK Ada <MLH/index>
 

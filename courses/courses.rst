@@ -5,7 +5,7 @@
 :next_state: False
 
 Courses
-=============================
+=======
 
 .. toctree::
    :maxdepth: 1
@@ -14,6 +14,6 @@ Courses
    Introduction to SPARK <intro-to-spark/index>
    Advanced Ada <advanced-ada/index>
    Advanced SPARK <advanced-spark/index>
-
+   MLH Localhost SPARK Ada Workshop <mlh/index>
 
 

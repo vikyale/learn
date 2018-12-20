@@ -30,7 +30,8 @@ from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from xml.sax.saxutils import escape
 
-WIDGETS_SERVER_URL = "https://cloudchecker-staging.r53.adacore.com"
+#WIDGETS_SERVER_URL = "https://cloudchecker-staging.r53.adacore.com"
+WIDGETS_SERVER_URL = "http://127.0.0.1:8000"
 # TODO: make this a configuration parameter
 
 template = u"""
@@ -55,6 +56,7 @@ class Config(object):
     prove_button = False
     accumulate_code = False
     reset_accumulator = False
+    lab_editor = False
 
 
 config = Config()
@@ -153,10 +155,12 @@ class WidgetCodeDirective(Directive):
                 'ada-syntax-only' in self.options['class'])):
             has_run_button = False
             has_prove_button = False
+            has_lab_editor = False
         else:
             has_run_button = config.run_button or \
                 'run_button' in argument_list
             has_prove_button = config.prove_button
+            has_lab_editor = config.lab_editor
 
         # Make sure code-config exists in the document
         if not codeconfig_found:
@@ -212,6 +216,8 @@ class WidgetCodeDirective(Directive):
             extra_attribs += ' run_button="True"'
         if has_prove_button:
             extra_attribs += ' prove_button="True"'
+        if has_lab_editor:
+            extra_attribs += ' lab_editor="True"'
 
         return [
             nodes.raw('',

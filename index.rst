@@ -35,6 +35,7 @@ LEARN.ADACORE.COM
 
        About <about>
        Courses <courses/courses>
+       Labs <labs/labs>
        Books <books/books>
 
 
