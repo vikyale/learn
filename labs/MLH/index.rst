@@ -60,7 +60,7 @@ Explanation
 
 This is a sample explanation of the sample
 
-.. code:: ada
+.. code:: ada spark-report-all
 
     package Stack with SPARK_Mode => On is
 
@@ -141,7 +141,8 @@ This is a sample explanation of the sample
     with Ada.Text_IO; use Ada.Text_IO;
     with Stack;       use Stack;
 
-    procedure Example is
+    procedure Example with SPARK_Mode => Off
+    is
        --------------------
        -- Get_User_Input --
        --------------------

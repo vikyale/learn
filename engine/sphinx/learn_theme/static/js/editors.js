@@ -402,7 +402,7 @@ function fill_editor_from_contents(container, example_name, example_server,
           var div = $('<div class="output_info">');
           div.text("Proving...");
           div.appendTo(output_area);
-          query_operation_result(container, example_name, check_button.editors, output_area, "/check_program/");
+          query_operation_result(container, example_name, check_button.editors, output_area, "", "/check_program/");
        })
    }
 
@@ -410,7 +410,7 @@ function fill_editor_from_contents(container, example_name, example_server,
       var run_button = $('<button type="button" class="btn btn-primary">').text("Run").appendTo(buttons_div);
 
       if (container.attr("lab_editor")) {
-        var arg_text = $('<textarea class="args form-control"></textarea>').appendTo(buttons_div);
+        var arg_text = $('<textarea id="%s" placeholder="args..." class="args" rows=1 cols=30></textarea>').appendTo(buttons_div);
       }
 
       editors.buttons.push(run_button);

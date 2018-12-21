@@ -133,3 +133,9 @@ div.content-description.docutils.container {
 .responsiveCarousel {
     padding-top: 20px;
 }
+
+textarea.args {
+    overflow: auto;
+    margin-right: 4px;
+    margin-top: 2px;
+}

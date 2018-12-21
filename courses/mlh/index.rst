@@ -9,7 +9,7 @@ Major League Hacking Localhost - Bug-free Coding with SPARK Ada
 
 .. container:: content-description
 
-    During this workshop, you’ll teach participants what makes the Ada programming language special and why they should use it, how to write bug-free code with SPARK Ada and how to implement the stack data structure in SPARK Ada.
+    MLH Localhost workshop
 
 
 .. toctree::
