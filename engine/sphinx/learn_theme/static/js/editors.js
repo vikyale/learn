@@ -140,7 +140,7 @@ function get_output_from_identifier(container, editors, output_area, identifier)
 
 
 // Launch a run on the given example editor
-function query_operation_result(container, example_name, editors, output_area, args, operation_url) {
+function query_operation_result(container, example_name, editors, output_area, operation_url, args="") {
 
     files = []
 
@@ -166,9 +166,14 @@ function query_operation_result(container, example_name, editors, output_area, a
         "example_name": example_name,
         "files": files,
         "main": container.attr("main"),
-        "prog_args": args,
         "extra_args": container.attr("extra_args"),
     }
+
+    if (args != "")
+      data["prog_args"] = args;
+
+    if (container.attr("lab_name"))
+      data["lab_name"] = container.attr("lab_name");
 
     // reset the number of lines already read
     container.already_read = 0;
@@ -402,7 +407,7 @@ function fill_editor_from_contents(container, example_name, example_server,
           var div = $('<div class="output_info">');
           div.text("Proving...");
           div.appendTo(output_area);
-          query_operation_result(container, example_name, check_button.editors, output_area, "", "/check_program/");
+          query_operation_result(container, example_name, check_button.editors, output_area, "/check_program/");
        })
    }
 
@@ -426,12 +431,32 @@ function fill_editor_from_contents(container, example_name, example_server,
         div.appendTo(output_area);
 
         if (container.attr("lab_editor")) {
-          query_operation_result(container, example_name, run_button.editors, output_area, arg_text.val(), "/run_program/");
+          query_operation_result(container, example_name, run_button.editors, output_area, "/run_program/", arg_text.val());
         }
         else {
-          query_operation_result(container, example_name, run_button.editors, output_area, "", "/run_program/");
+          query_operation_result(container, example_name, run_button.editors, output_area, "/run_program/");
         }
       })
+  }
+
+  if (container.attr("lab_editor")) {
+    var submit_button = $('<button type="button" class="btn btn-primary">').text("Submit").appendTo(buttons_div);
+
+    editors.buttons.push(submit_button);
+    submit_button.editors = editors;
+    submit_button.on('click', function (x) {
+      if (submit_button.disabled) {return;}
+      editors.buttons.forEach(function(b){b.disabled = true;})
+      output_area.empty();
+      output_area.error_count = 0;
+
+      var div = $('<div class="output_info">');
+      div.text("Submitting...");
+      div.appendTo(output_area);
+
+      query_operation_result(container, example_name, submit_button.editors, output_area, "/submit_program/", arg_text.val());
+    });
+    
   }
 }
 

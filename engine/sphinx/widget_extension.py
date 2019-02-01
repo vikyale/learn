@@ -149,6 +149,15 @@ class WidgetCodeDirective(Directive):
         if self.arguments:
             argument_list = self.arguments[0].split(' ')
 
+        if 'ada' in argument_list:
+            extra_attribs += ' language="ada"'
+        elif 'c' in argument_list:
+            extra_attribs += ' language="c"'
+        elif 'c++' in argument_list:
+            extra_attribs += ' language="c++"'
+        else:
+            raise self.error("Unknown language specified")
+
         if 'no_button' in argument_list or (
             'class' in self.options and (
                 'ada-nocheck' in self.options['class'] or
